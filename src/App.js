@@ -1,34 +1,52 @@
-import React from "react";
-import './App.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-//Components
-import SearchBar from './components/SearchBar/SearchBar';
-import Header from './components/Header/Header';
-import Counter from "./components/Counter/Counter";
-
-//Inline component - without JSX
-const HelloWorld = React.createElement(
-  "div",
-  {
-    className: "grid-item"
-  },
-  React.createElement(
-    "h3",
-    null,
-    "Hello world by React.createElement"
-  )
-)
+//Components - organisms
+import Header from "./components/organisms/Header/Header";
+import Footer from "./components/organisms/Footer/Footer";
+import ErrorBoundary from "./components/organisms/ErrorBoundary";
+import MovieList from "./components/organisms/MovieList/MovieList";
+import MovieDetails from "./components/organisms/MovieDetails/MovieDetails";
+import { Container } from "react-bootstrap";
+import GlobalStyle from "./theme/globalStyle";
+import { moviesData } from "./data/moviesData";
+import { AppContext } from './context/context';
 
 function App() {
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showMovieModal, setShowMovieModal] = useState(false);
+  const [editableMovie, setEditableMovie] = useState({});
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const contextData = {
+    movies: [...moviesData],
+    filteredMovies,
+    setFilteredMovies,
+    showDeleteModal,
+    setShowDeleteModal,
+    showMovieModal,
+    setShowMovieModal,
+    selectedMovie,
+    setSelectedMovie,
+    editableMovie,
+    setEditableMovie
+  }
+  
   return (
-    <div className="App">
-      <Header />
-      {HelloWorld}
-      <main className="App-main">
-        <SearchBar />
-        <Counter />
-      </main>
-    </div>
+    <AppContext.Provider value={contextData}>
+      <>
+      <GlobalStyle />
+      <Container className="containerSettings">
+        <ErrorBoundary>
+          {contextData.showMovieModal ? <MovieDetails /> :  <Header />}
+          <MovieList />
+        </ErrorBoundary>
+        <Footer />
+      </Container>
+      </>
+    </AppContext.Provider>
   );
 }
 
