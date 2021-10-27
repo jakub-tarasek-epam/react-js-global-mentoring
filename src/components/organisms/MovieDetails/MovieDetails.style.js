@@ -63,7 +63,7 @@ export const Info = styled.span`
 `;
 
 export const Description = styled.p`
-  color: ${colorsPallete.grayFuscous};
+  color: ${colorsPallete.grey};
   font-size: ${fontSize.xs};
   font-weight: 300;
   margin-top: 20px;

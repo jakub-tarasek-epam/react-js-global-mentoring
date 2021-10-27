@@ -17,37 +17,37 @@ import {
 } from "./MovieDetails.style";
 
 const MovieDetails = () => {
-  const { editableMovie, setShowMovieModal } = useContext(AppContext);
+  const { selectedMovie, setSelectedMovie } = useContext(AppContext);
 
   return (
     <Wrapper>
       <Col>
         <Stack direction="horizontal" gap={3}>
           <Title isHeader={true} />
-          <Close className="ms-auto" onClick={() => setShowMovieModal(false)}/>
+          <Close className="ms-auto" onClick={() => setSelectedMovie(false)}/>
         </Stack>
         <Row>
           <Col sm={4}>
-            <Image src={editableMovie.image} fluid />
+            <Image src={selectedMovie.image} fluid />
           </Col>
           <Col sm={6}>
             <FlexWrapper>
-              <MovieTitle>{editableMovie.title}</MovieTitle>
-              <Raiting>{editableMovie.rating}</Raiting>
+              <MovieTitle>{selectedMovie.title}</MovieTitle>
+              <Raiting>{selectedMovie.rating}</Raiting>
             </FlexWrapper>
             <Row>
-              <Genre>{editableMovie.genre}</Genre>
+              <Genre>{selectedMovie.genre}</Genre>
             </Row>
             <FlexWrapper>
               <Info>
-                {editableMovie.year}
+                {selectedMovie.year}
               </Info>
               <Info>
-                {editableMovie.duration}
+                {selectedMovie.duration}
               </Info>
             </FlexWrapper>
             <Row>
-              <Description>{editableMovie.desc}</Description>
+              <Description>{selectedMovie.desc}</Description>
             </Row>
           </Col>
         </Row>

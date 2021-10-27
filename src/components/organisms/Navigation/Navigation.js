@@ -12,7 +12,10 @@ function Navigation() {
                 <div>HORROR</div>
                 <div>CRIME</div>
                 <div className="ms-auto">SORT BY</div>
-                <div>RELEASE DATE</div>
+                <select onChange={() => {}}>
+                    <option value="release_date">RELEASE DATE</option>
+                    <option value="vote_average">RAITNG</option>
+                </select>
             </Stack>
             <span><strong>39</strong> movies found</span>
         </Wrapper>

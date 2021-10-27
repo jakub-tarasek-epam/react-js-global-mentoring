@@ -16,4 +16,15 @@ export const Stack = styled(StackBt)`
     div{
         cursor: pointer;
     }
+
+    select{
+        position: relative;
+        bottom: 1px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        opacity: 1;
+        color: ${colorsPallete.red};
+        outline: none;
+    }
 `;

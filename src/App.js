@@ -7,13 +7,15 @@ import Footer from "./components/organisms/Footer/Footer";
 import ErrorBoundary from "./components/organisms/ErrorBoundary";
 import MovieList from "./components/organisms/MovieList/MovieList";
 import MovieDetails from "./components/organisms/MovieDetails/MovieDetails";
+import DeleteMovie from "./components/organisms/Modals/DeleteMovie/DeleteMovie";
+
 import { Container } from "react-bootstrap";
 import GlobalStyle from "./theme/globalStyle";
 import { moviesData } from "./data/moviesData";
-import { AppContext } from './context/context';
+import { AppContext } from "./context/context";
+import MovieModal from "components/organisms/Modals/MovieModal/MovieModal";
 
 function App() {
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showMovieModal, setShowMovieModal] = useState(false);
   const [editableMovie, setEditableMovie] = useState({});
@@ -31,20 +33,24 @@ function App() {
     selectedMovie,
     setSelectedMovie,
     editableMovie,
-    setEditableMovie
-  }
-  
+    setEditableMovie,
+  };
+
+  console.log(selectedMovie);
+
   return (
     <AppContext.Provider value={contextData}>
       <>
-      <GlobalStyle />
-      <Container className="containerSettings">
-        <ErrorBoundary>
-          {contextData.showMovieModal ? <MovieDetails /> :  <Header />}
-          <MovieList />
-        </ErrorBoundary>
-        <Footer />
-      </Container>
+        <GlobalStyle />
+        <Container className="containerSettings">
+          <ErrorBoundary>
+            {contextData.selectedMovie ? <MovieDetails /> : <Header />}
+            <MovieList />
+          </ErrorBoundary>
+          <Footer />
+          <DeleteMovie />
+          <MovieModal />
+        </Container>
       </>
     </AppContext.Provider>
   );

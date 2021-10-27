@@ -1,23 +1,28 @@
 import styled from "styled-components";
-import { colorsPallete, fontSize } from "theme/variables";
-import { Col, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
+import { colorsPallete } from "theme/variables";
 
-export const Wrapper = styled(Col)`
-  padding-top: 60px;
+export const Wrapper = styled(Modal)`
   color: ${colorsPallete.white};
 
-  p {
-    padding-bottom: 20px;
-    font-size: ${fontSize.xl};
-    font-weight: 600;
+  .modal-header {
+    .modal-title {
+      font-weight: 300;
+    }
+
+    border: none;
   }
 
-  input {
-    background: ${colorsPallete.almostDark};
-    opacity: 0.8;
-    border: 0;
-    padding: 14px 0 14px 20px;
-    color: ${colorsPallete.white};
+  .modal-footer {
+    border: none;
+  }
+
+  .modal-content {
+    background: ${colorsPallete.black};
+  }
+
+  .btn-close{
+      color: ${colorsPallete.white};
   }
 `;
 

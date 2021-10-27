@@ -46,8 +46,8 @@ const MovieCard = (props) => {
   ));
 
   return (
-    <Wrapper onClick={() => setSelectedMovie(props.movie)}>
-      <Card.Img variant="top" src={props.image} />
+    <Wrapper>
+      <Card.Img variant="top" src={props.image} onClick={() => setSelectedMovie(props)}/>
       <Dropdown className="forHover">
         <Dropdown.Toggle as={CustomToggle}></Dropdown.Toggle>
 
