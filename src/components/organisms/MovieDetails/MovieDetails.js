@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Title from "components/molecules/Title/Title";
 import { Col, Image, Row } from "react-bootstrap";
-import { AppContext } from "context/context";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { unselectMovie } from 'state/SelectedMovieSlice';
 
 import {
   Wrapper,
@@ -17,37 +17,38 @@ import {
 } from "./MovieDetails.style";
 
 const MovieDetails = () => {
-  const { selectedMovie, setSelectedMovie } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const selectedMovie = useSelector((state) => state.selectedMovie.value);
 
   return (
     <Wrapper>
       <Col>
         <Stack direction="horizontal" gap={3}>
           <Title isHeader={true} />
-          <Close className="ms-auto" onClick={() => setSelectedMovie(false)}/>
+          <Close className="ms-auto" onClick={() => dispatch(unselectMovie()) }/>
         </Stack>
         <Row>
           <Col sm={4}>
-            <Image src={selectedMovie.image} fluid />
+            <Image src={selectedMovie.poster_path} fluid />
           </Col>
           <Col sm={6}>
             <FlexWrapper>
               <MovieTitle>{selectedMovie.title}</MovieTitle>
-              <Raiting>{selectedMovie.rating}</Raiting>
+              <Raiting>{selectedMovie.vote_average}</Raiting>
             </FlexWrapper>
             <Row>
-              <Genre>{selectedMovie.genre}</Genre>
+              <Genre>{selectedMovie.genres.map(genre => <span>{genre} </span>)}</Genre>
             </Row>
             <FlexWrapper>
               <Info>
-                {selectedMovie.year}
+                {selectedMovie.release_date}
               </Info>
               <Info>
-                {selectedMovie.duration}
+                {selectedMovie.runtime || "00:00:00"} min
               </Info>
             </FlexWrapper>
             <Row>
-              <Description>{selectedMovie.desc}</Description>
+              <Description>{selectedMovie.overview}</Description>
             </Row>
           </Col>
         </Row>

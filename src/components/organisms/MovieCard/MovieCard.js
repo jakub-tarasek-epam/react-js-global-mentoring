@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
-import { Card, Stack } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { AppContext } from "context/context";
+import React from "react";
+import { Stack } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
+import { showEditMovieModal } from 'state/EditMovieSlice';
+import { showDeleteModal } from 'state/DeleteMovieSlice';
+import { selectMovie } from 'state/SelectedMovieSlice';
 
 import {
   Wrapper,
@@ -9,25 +11,15 @@ import {
   CardSubtitle,
   CardYear,
   CardBody,
+  CardImg,
   Dropdown,
   Dots,
   DropdownMenu,
 } from "./MovieCard.styles";
 
-const MovieCard = (props) => {
-  const {
-    setEditableMovie,
-    setShowDeleteModal,
-    setShowMovieModal,
-    setSelectedMovie,
-  } = useContext(AppContext);
+const MovieCard = ({ movie }) => {
 
-  const handleItem = (movieModal) => {
-    setEditableMovie(props);
-    if (movieModal) {
-      setShowMovieModal(true);
-    } else setShowDeleteModal(true);
-  };
+  const dispatch = useDispatch();
 
   const CustomToggle = React.forwardRef(({ onClick }, ref) => (
     <Dots
@@ -47,35 +39,28 @@ const MovieCard = (props) => {
 
   return (
     <Wrapper>
-      <Card.Img variant="top" src={props.image} onClick={() => setSelectedMovie(props)}/>
+      <CardImg variant="top" src={movie.poster_path} onClick={() => dispatch(selectMovie(movie)) }/>
       <Dropdown className="forHover">
         <Dropdown.Toggle as={CustomToggle}></Dropdown.Toggle>
 
         <DropdownMenu>
-          <Dropdown.Item onClick={() => handleItem(true)}>Edit</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleItem()}>Delete</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(showEditMovieModal(movie))}>Edit</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(showDeleteModal(movie))}>Delete</Dropdown.Item>
         </DropdownMenu>
       </Dropdown>
       <CardBody>
         <Stack direction="horizontal" gap={2} className="align-items-start">
           <div>
-            <CardTitle>{props.title}</CardTitle>
-            <CardSubtitle className="text-muted">{props.genre}</CardSubtitle>
+            <CardTitle>{movie.title}</CardTitle>
+            <CardSubtitle className="text-muted">{movie.genres[0]}</CardSubtitle>
           </div>
           <CardYear className="align-items-center text-center ms-auto">
-            {props.year}
+            {movie.release_date}
           </CardYear>
         </Stack>
       </CardBody>
     </Wrapper>
   );
-};
-
-MovieCard.protoTypes = {
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string,
-  genre: PropTypes.string,
-  year: PropTypes.string,
 };
 
 export default MovieCard;

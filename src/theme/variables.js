@@ -11,6 +11,7 @@ export const colorsPallete = {
 }
 
 export const fontSize = {
+    xxs: '0.6rem',
     xs: '0.85rem',
     s: '1rem',
     m: '1.15rem',

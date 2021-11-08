@@ -14,24 +14,24 @@ export const Dots = styled.span`
   background-color: ${colorsPallete.almostDark};
   cursor: pointer;
 
-  &:hover{
-     span{
-        background-color: ${colorsPallete.red};
-     }
+  &:hover {
+    span {
+      background-color: ${colorsPallete.red};
+    }
   }
 
-  div{
-     display: flex;
-     flex-direction: column;
+  div {
+    display: flex;
+    flex-direction: column;
   }
 
-  span{
-     display: block;
-     width: 6px;
-     height: 6px;
-     border-radius: 50%;
-     background-color: ${colorsPallete.white};
-     margin-bottom: 3px;
+  span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: ${colorsPallete.white};
+    margin-bottom: 3px;
   }
 `;
 
@@ -42,9 +42,9 @@ export const DropdownMenu = styled(Dr.Menu)`
   a {
     color: ${colorsPallete.white};
 
-    &:hover{
-       background: ${colorsPallete.almostDark};
-       color: ${colorsPallete.red};
+    &:hover {
+      background: ${colorsPallete.almostDark};
+      color: ${colorsPallete.red};
     }
   }
 `;
@@ -64,9 +64,8 @@ export const CardTitle = styled(Card.Title)`
 export const CardBody = styled(Card.Body)`
   padding: 1em 0;
 
-  &:hover .forHover{
-     display: block;
-     
+  &:hover .forHover {
+    display: block;
   }
 `;
 
@@ -76,8 +75,8 @@ export const Dropdown = styled(Dr)`
   top: 10px;
   right: 10px;
 
-  ${CardBody}:hover{
-     display: block;
+  ${CardBody}:hover {
+    display: block;
   }
 `;
 
@@ -87,8 +86,14 @@ export const CardSubtitle = styled(Card.Subtitle)`
 
 export const CardYear = styled(Card.Text)`
   display: block;
+  font-size: ${fontSize.xxs};
   padding: 3px 12px;
   border-radius: 4px;
   opacity: 0.5;
   border: 1px solid ${colorsPallete.grey};
+`;
+
+export const CardImg = styled(Card.Img)`
+  max-height: 450px;
+  height: 450px;
 `;

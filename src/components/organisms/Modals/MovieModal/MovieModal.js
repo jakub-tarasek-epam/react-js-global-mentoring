@@ -1,45 +1,42 @@
-import { AppContext } from "context/context";
-import { useContext } from "react";
+import React from "react";
 import { Modal, CloseButton, Form, Row, Col } from "react-bootstrap";
 import { Wrapper, Btn } from "./MovieModal.styles";
 
-const MovieModal = () => {
-
-    const { showMovieModal, setShowMovieModal, editableMovie } = useContext(AppContext);
-
+const MovieModal = ({movieData, handleHide, handleSubmit}) => {
     return (
         <>
             <Wrapper
-                show={showMovieModal}
+                show={true}
+                onHide={handleHide}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Header>
-                    <Modal.Title>{Object.keys(editableMovie).length === 0 ? "ADD MOVIE" : "EDIT MOVIE"}</Modal.Title>
-                    <CloseButton variant="white" onClick={() => setShowMovieModal(false)}/>
+                    <Modal.Title>{Object.keys(movieData).length === 0 ? "ADD MOVIE" : "EDIT MOVIE"}</Modal.Title>
+                    <CloseButton variant="white" onClick={handleHide}/>
                 </Modal.Header>
                 <Form>
                     <Modal.Body>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="title">
                                 <Form.Label>Title</Form.Label>
-                                <Form.Control placeholder="Title" onChange={() => {}}  value={editableMovie.title} />
+                                <Form.Control placeholder="Title" onChange={() => {}}  value={movieData.title} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="releaseDate">
                                 <Form.Label>Release date</Form.Label>
-                                <Form.Control type="date" placeholder="Select date" onChange={() => {}}  value={editableMovie.year} />
+                                <Form.Control type="date" placeholder="Select date" onChange={() => {}}  value={movieData.release_date} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="url">
                                 <Form.Label>Movie URL</Form.Label>
-                                <Form.Control placeholder="https://" onChange={() => {}} value={editableMovie.url} />
+                                <Form.Control placeholder="https://" onChange={() => {}} value={movieData.url} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="rating">
                                 <Form.Label>Rating</Form.Label>
-                                <Form.Control placeholder="7.8" onChange={() => {}}  value={editableMovie.rating} />
+                                <Form.Control placeholder="7.8" onChange={() => {}}  value={movieData.rating} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -55,21 +52,21 @@ const MovieModal = () => {
 
                             <Form.Group as={Col} controlId="runtime">
                                 <Form.Label>Runtime</Form.Label>
-                                <Form.Control placeholder="minutes" onChange={() => {}}  value={editableMovie.duration} />
+                                <Form.Control placeholder="minutes" onChange={() => {}}  value={movieData.duration} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="overview">
                                 <Form.Label>Overview</Form.Label>
-                                <Form.Control as="textarea" style={{ height: '200px', fontSize: '12px' }} placeholder="Movie description" onChange={() => {}}  value={editableMovie.desc} />
+                                <Form.Control as="textarea" style={{ height: '200px', fontSize: '12px' }} placeholder="Movie description" onChange={() => {}}  value={movieData.overview} />
                             </Form.Group>
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Btn isOutline onClick={() => setShowMovieModal(false)}>
+                        <Btn isOutline onClick={handleHide}>
                             Reset
                         </Btn>
-                        <Btn onClick={() => setShowMovieModal(false)}>
+                        <Btn onClick={handleSubmit}>
                             Submit
                         </Btn>
                     </Modal.Footer>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Components - organisms
@@ -11,48 +12,48 @@ import DeleteMovie from "./components/organisms/Modals/DeleteMovie/DeleteMovie";
 
 import { Container } from "react-bootstrap";
 import GlobalStyle from "./theme/globalStyle";
-import { moviesData } from "./data/moviesData";
-import { AppContext } from "./context/context";
 import MovieModal from "components/organisms/Modals/MovieModal/MovieModal";
 
+import { hideDeleteModal } from 'state/DeleteMovieSlice';
+import { hideEditMovieModal } from 'state/EditMovieSlice';
+import { hideAddMovieModal } from 'state/AddMovieSlice';
+import { fetchMovies } from 'state/MoviesSlice';
+
 function App() {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showMovieModal, setShowMovieModal] = useState(false);
-  const [editableMovie, setEditableMovie] = useState({});
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const dispatch = useDispatch();
+  dispatch(fetchMovies());
 
-  const contextData = {
-    movies: [...moviesData],
-    filteredMovies,
-    setFilteredMovies,
-    showDeleteModal,
-    setShowDeleteModal,
-    showMovieModal,
-    setShowMovieModal,
-    selectedMovie,
-    setSelectedMovie,
-    editableMovie,
-    setEditableMovie,
-  };
-
-  console.log(selectedMovie);
+  const selectedMovie = useSelector((state) => state.selectedMovie.value);
+  const editMovie = useSelector((state) => state.editMovie.value);
+  const deleteMovie = useSelector((state) => state.deleteMovie.value);
+  const addMovie = useSelector((state) => state.addMovie.value);
 
   return (
-    <AppContext.Provider value={contextData}>
       <>
         <GlobalStyle />
         <Container className="containerSettings">
           <ErrorBoundary>
-            {contextData.selectedMovie ? <MovieDetails /> : <Header />}
+            {selectedMovie ? <MovieDetails /> : <Header />}
             <MovieList />
           </ErrorBoundary>
           <Footer />
-          <DeleteMovie />
-          <MovieModal />
+          {deleteMovie && <DeleteMovie 
+            movieData={deleteMovie} 
+            handleHide={() => { dispatch(hideDeleteModal()); }} 
+            handleSubmit={() => { dispatch(hideDeleteModal()); }}
+          />}          
+          {editMovie && <MovieModal 
+            movieData={editMovie} 
+            handleHide={() => { dispatch(hideEditMovieModal()); }} 
+            handleSubmit={() => { dispatch(hideEditMovieModal()); }} 
+          />}
+          {addMovie && <MovieModal 
+            movieData={{}} 
+            handleHide={() => { dispatch(hideAddMovieModal()); }} 
+            handleSubmit={() => { dispatch(hideAddMovieModal()); }} 
+          />}
         </Container>
       </>
-    </AppContext.Provider>
   );
 }
 

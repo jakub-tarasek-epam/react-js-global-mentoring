@@ -1,16 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Btn } from "./AddItemButton.style";
-import { AppContext } from "context/context";
+import { showAddMovieModal } from 'state/AddMovieSlice';
 
 const AddItemButton = () => {
-
-  const { setShowMovieModal, setEditableMovie } = useContext(AppContext);
-  const handleClick = () => {
-    setEditableMovie({}); 
-    setShowMovieModal(true);
-  }
+  const dispatch = useDispatch();
   
-  return <Btn $isOutline className="ms-auto" onClick={handleClick}>Add movie</Btn>;
+  return <Btn $isOutline className="ms-auto" onClick={() => dispatch(showAddMovieModal()) }>Add movie</Btn>;
 };
 
 export default AddItemButton;

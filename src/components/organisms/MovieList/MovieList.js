@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Col } from "react-bootstrap";
 import MovieCard from "components/organisms/MovieCard/MovieCard";
 import Navigation from "components/organisms//Navigation/Navigation";
-import { AppContext } from "context/context";
-
-import { RowMain, Wrapper, Nothing } from "./MovieList.styles";
+import { RowMain, Wrapper } from "./MovieList.styles";
+import { useSelector } from 'react-redux';
 
 const MovieList = () => {
-  const { filteredMovies } = useContext(AppContext);
+
+  const movies = useSelector((state) => {
+    if(state.movies)
+      return state.movies.movies
+  });
 
   return (
     <Wrapper>
       <Navigation />
       <RowMain xs={1} md={3} lg={3} className="g-4">
-        {!filteredMovies.length && <Nothing>Nothing match</Nothing>}
-        {filteredMovies.map((movie) => (
+        {movies && movies.map((movie) => (
           <Col key={movie.id}>
-            <MovieCard {...movie} />
+            <MovieCard movie={movie} />
           </Col>
         ))}
       </RowMain>
