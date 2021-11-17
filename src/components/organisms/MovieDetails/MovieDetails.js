@@ -37,7 +37,7 @@ const MovieDetails = () => {
               <Raiting>{selectedMovie.vote_average}</Raiting>
             </FlexWrapper>
             <Row>
-              <Genre>{selectedMovie.genres.map(genre => <span>{genre} </span>)}</Genre>
+              <Genre>{selectedMovie.genres.map(genre => <span key={genre}>{genre} </span>)}</Genre>
             </Row>
             <FlexWrapper>
               <Info>

@@ -1,79 +1,230 @@
 import React from "react";
 import { Modal, CloseButton, Form, Row, Col } from "react-bootstrap";
+import { useFormik } from "formik";
 import { Wrapper, Btn } from "./MovieModal.styles";
 
-const MovieModal = ({movieData, handleHide, handleSubmit}) => {
-    return (
-        <>
-            <Wrapper
-                show={true}
-                onHide={handleHide}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header>
-                    <Modal.Title>{Object.keys(movieData).length === 0 ? "ADD MOVIE" : "EDIT MOVIE"}</Modal.Title>
-                    <CloseButton variant="white" onClick={handleHide}/>
-                </Modal.Header>
-                <Form>
-                    <Modal.Body>
-                        <Row className="mb-3">
-                            <Form.Group as={Col} controlId="title">
-                                <Form.Label>Title</Form.Label>
-                                <Form.Control placeholder="Title" onChange={() => {}}  value={movieData.title} />
-                            </Form.Group>
+const validate = (values) => {
+  const errors = {};
 
-                            <Form.Group as={Col} controlId="releaseDate">
-                                <Form.Label>Release date</Form.Label>
-                                <Form.Control type="date" placeholder="Select date" onChange={() => {}}  value={movieData.release_date} />
-                            </Form.Group>
-                        </Row>
-                        <Row className="mb-3">
-                            <Form.Group as={Col} controlId="url">
-                                <Form.Label>Movie URL</Form.Label>
-                                <Form.Control placeholder="https://" onChange={() => {}} value={movieData.url} />
-                            </Form.Group>
+  if (!values.title) {
+    errors.title = "Required";
+  }
+  if (!values.tagline) {
+    errors.tagline = "Required";
+  }
+  if (!values.poster_path) {
+    errors.poster_path = "Required";
+  } else if (
+    !/^(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-.?,'/\\+&amp;%$#_]*)?$/i.test(
+      values.poster_path
+    )
+  ) {
+    errors.poster_path = "Should be valid URL";
+  }
+  if (!values.overview) {
+    errors.overview = "Required";
+  }
+  if (!values.genres) {
+    errors.genres = "Required";
+  }
+  if (!values.runtime) {
+    errors.runtime = "Required";
+  } else if (values.runtime < 0) {
+    errors.runtime = "Runtime should be positive";
+  }
+  if (values.vote_average && !/^\d+(\.\d{1,2})?$/i.test(values.vote_average)) {
+    errors.vote_average = "Should be number";
+  }
 
-                            <Form.Group as={Col} controlId="rating">
-                                <Form.Label>Rating</Form.Label>
-                                <Form.Control placeholder="7.8" onChange={() => {}}  value={movieData.rating} />
-                            </Form.Group>
-                        </Row>
-                        <Row className="mb-3">
-                            <Form.Group as={Col} controlId="genre">
-                                <Form.Label>Genre</Form.Label>
-                                <Form.Select readOnly aria-label="Select genre" onChange={() => {}} >
-                                    <option value="1">Crime</option>
-                                    <option value="2">Documentary</option>
-                                    <option value="3">Horror</option>
-                                    <option value="4">Comedy</option>
-                                </Form.Select>
-                            </Form.Group>
+  return errors;
+};
 
-                            <Form.Group as={Col} controlId="runtime">
-                                <Form.Label>Runtime</Form.Label>
-                                <Form.Control placeholder="minutes" onChange={() => {}}  value={movieData.duration} />
-                            </Form.Group>
-                        </Row>
-                        <Row className="mb-3">
-                            <Form.Group as={Col} controlId="overview">
-                                <Form.Label>Overview</Form.Label>
-                                <Form.Control as="textarea" style={{ height: '200px', fontSize: '12px' }} placeholder="Movie description" onChange={() => {}}  value={movieData.overview} />
-                            </Form.Group>
-                        </Row>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Btn isOutline onClick={handleHide}>
-                            Reset
-                        </Btn>
-                        <Btn onClick={handleSubmit}>
-                            Submit
-                        </Btn>
-                    </Modal.Footer>
-                </Form>
-            </Wrapper>
-        </>
-    );
-}
+const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
+    console.log(movieData);
+  const formikInstance = useFormik({
+    initialValues: {
+      ...movieData,
+    },
+    validate,
+    onSubmit: values => {
+      handleSubmit(values);
+    },
+  });
+
+  return (
+    <>
+      <Wrapper
+        show={true}
+        onHide={handleHide}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>
+            {Object.keys(movieData).length === 0 ? "ADD MOVIE" : "EDIT MOVIE"}
+          </Modal.Title>
+          <CloseButton variant="white" onClick={handleHide} />
+        </Modal.Header>
+        <Form onSubmit={formikInstance.handleSubmit}>
+          <Modal.Body>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="title">
+                <Form.Label>Title*</Form.Label>
+                <Form.Control
+                  placeholder="Title"
+                  value={formikInstance.values.title}
+                  onChange={formikInstance.handleChange}
+                  isValid={
+                    formikInstance.touched.title && !formikInstance.errors.title
+                  }
+                  isInvalid={!!formikInstance.errors.title}                  
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.title}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="tagline">
+                <Form.Label>Tag line*</Form.Label>
+                <Form.Control
+                  placeholder="Tag line"
+                  onChange={formikInstance.handleChange}
+                  value={formikInstance.values.tagline}
+                  isValid={
+                    formikInstance.touched.tagline &&
+                    !formikInstance.errors.tagline
+                  }
+                  isInvalid={!!formikInstance.errors.tagline}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.tagline}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="poster_path">
+                <Form.Label>Movie URL*</Form.Label>
+                <Form.Control
+                  placeholder="https://"
+                  value={formikInstance.values.poster_path}
+                  onChange={formikInstance.handleChange}
+                  isValid={
+                    formikInstance.touched.poster_path &&
+                    !formikInstance.errors.poster_path
+                  }
+                  isInvalid={!!formikInstance.errors.poster_path}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.poster_path}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="vote_average">
+                <Form.Label>Rating</Form.Label>
+                <Form.Control
+                  placeholder="7.8"
+                  value={formikInstance.values.vote_average}
+                  type="number"
+                  onChange={formikInstance.handleChange}
+                  isValid={
+                    formikInstance.touched.vote_average &&
+                    !formikInstance.errors.vote_average
+                  }
+                  isInvalid={!!formikInstance.errors.vote_average}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.vote_average}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="genres">
+                <Form.Label>Genres*</Form.Label>
+                <Form.Control
+                  as="select"
+                  multiple
+                  placeholder="Select genres"
+                  value={formikInstance.values.genres}
+                  onChange={formikInstance.handleChange}
+                  isInvalid={!!formikInstance.errors.genres}
+                >
+                  <option value="Crime">Crime</option>
+                  <option value="Documentary">Documentary</option>
+                  <option value="Horror">Horror</option>
+                  <option value="Comedy">Comedy</option>
+                  <option value="Drama">Drama</option>
+                  <option value="Romance">Romance</option>
+                </Form.Control>
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.genres}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="runtime">
+                <Form.Label>Runtime*</Form.Label>
+                <Form.Control
+                  placeholder="minutes"
+                  value={formikInstance.values.runtime}
+                  type="number"
+                  onChange={formikInstance.handleChange}
+                  isValid={
+                    formikInstance.touched.runtime &&
+                    !formikInstance.errors.runtime
+                  }
+                  isInvalid={!!formikInstance.errors.runtime}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.runtime}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="release_date">
+                <Form.Label>Release date</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder="Select date"
+                  value={formikInstance.values.release_date}
+                  onChange={formikInstance.handleChange}
+                  isValid={
+                    formikInstance.touched.release_date &&
+                    !formikInstance.errors.release_date
+                  }
+                  isInvalid={!!formikInstance.errors.release_date}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.release_date}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="overview">
+                <Form.Label>Overview*</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  style={{ height: "100px" }}
+                  placeholder="Movie description"
+                  value={formikInstance.values.overview}
+                  onChange={formikInstance.handleChange}
+                  isValid={formikInstance.touched.overview && !formikInstance.errors.overview}
+                  isInvalid={!!formikInstance.errors.overview}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formikInstance.errors.overview}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Btn onClick={handleHide}>
+              Reset
+            </Btn>
+            <Btn variant="primary" type="submit">Submit</Btn>
+          </Modal.Footer>
+        </Form>
+      </Wrapper>
+    </>
+  );
+};
 
 export default MovieModal;

@@ -17,7 +17,7 @@ import MovieModal from "components/organisms/Modals/MovieModal/MovieModal";
 import { hideDeleteModal } from 'state/DeleteMovieSlice';
 import { hideEditMovieModal } from 'state/EditMovieSlice';
 import { hideAddMovieModal } from 'state/AddMovieSlice';
-import { fetchMovies } from 'state/MoviesSlice';
+import { fetchMovies, createMovie, updateMovie, deleteMovie } from 'state/MoviesSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function App() {
 
   const selectedMovie = useSelector((state) => state.selectedMovie.value);
   const editMovie = useSelector((state) => state.editMovie.value);
-  const deleteMovie = useSelector((state) => state.deleteMovie.value);
+  const removeMovie = useSelector((state) => state.deleteMovie.value);
   const addMovie = useSelector((state) => state.addMovie.value);
 
   return (
@@ -37,20 +37,29 @@ function App() {
             <MovieList />
           </ErrorBoundary>
           <Footer />
-          {deleteMovie && <DeleteMovie 
-            movieData={deleteMovie} 
+          {removeMovie && <DeleteMovie 
+            movieData={removeMovie} 
             handleHide={() => { dispatch(hideDeleteModal()); }} 
-            handleSubmit={() => { dispatch(hideDeleteModal()); }}
+            handleSubmit={(movie) => { 
+              dispatch(hideDeleteModal()); 
+              dispatch(deleteMovie(movie));
+            }}
           />}          
           {editMovie && <MovieModal 
             movieData={editMovie} 
             handleHide={() => { dispatch(hideEditMovieModal()); }} 
-            handleSubmit={() => { dispatch(hideEditMovieModal()); }} 
+            handleSubmit={(movie) => { 
+              dispatch(hideEditMovieModal()); 
+              dispatch(updateMovie(movie));
+            }} 
           />}
           {addMovie && <MovieModal 
             movieData={{}} 
             handleHide={() => { dispatch(hideAddMovieModal()); }} 
-            handleSubmit={() => { dispatch(hideAddMovieModal()); }} 
+            handleSubmit={(movie) => { 
+              dispatch(hideAddMovieModal());
+              dispatch(createMovie(movie));
+            }} 
           />}
         </Container>
       </>
