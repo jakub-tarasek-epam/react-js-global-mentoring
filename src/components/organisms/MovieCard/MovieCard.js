@@ -53,7 +53,7 @@ const MovieCard = ({ movie }) => {
         <Stack direction="horizontal" gap={2} className="align-items-start">
           <div>
             <CardTitle>{movie.title}</CardTitle>
-            <CardSubtitle className="text-muted">{movie.genres.slice(0,2).join(" ")}</CardSubtitle>
+            <CardSubtitle className="text-muted">{movie.genres && movie.genres.slice(0,2).join(" ")}</CardSubtitle>
           </div>
           <CardYear className="align-items-center text-center ms-auto">
             {movie.release_date}

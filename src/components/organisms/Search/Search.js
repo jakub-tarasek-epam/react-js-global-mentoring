@@ -18,7 +18,7 @@ const Search = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        history.push('/search/' + e.target.searchQuery.value);
+        history.push('/search/' + e.target.elements.searchQuery.value);
     }
 
     return (
