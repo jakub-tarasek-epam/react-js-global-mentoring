@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie list renders correctly title component 1`] = `
+<h1
+  className="sc-bdvvtL fwSkZz"
+>
+  NetflixRoulette
+</h1>
+`;
