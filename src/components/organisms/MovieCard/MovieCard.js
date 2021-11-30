@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { showEditMovieModal } from 'state/EditMovieSlice';
 import { showDeleteModal } from 'state/DeleteMovieSlice';
 import { selectMovie } from 'state/SelectedMovieSlice';
+import { Link } from "react-router-dom";
 
 import {
   Wrapper,

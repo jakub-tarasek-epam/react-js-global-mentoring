@@ -72,7 +72,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Label>Title*</Form.Label>
                 <Form.Control
                   placeholder="Title"
-                  value={formikInstance.values.title}
+                  value={formikInstance.values.title || ""}
                   onChange={formikInstance.handleChange}
                   isValid={
                     formikInstance.touched.title && !formikInstance.errors.title
@@ -89,7 +89,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Control
                   placeholder="Tag line"
                   onChange={formikInstance.handleChange}
-                  value={formikInstance.values.tagline}
+                  value={formikInstance.values.tagline || ""}
                   isValid={
                     formikInstance.touched.tagline &&
                     !formikInstance.errors.tagline
@@ -106,7 +106,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Label>Movie URL*</Form.Label>
                 <Form.Control
                   placeholder="https://"
-                  value={formikInstance.values.poster_path}
+                  value={formikInstance.values.poster_path || ""}
                   onChange={formikInstance.handleChange}
                   isValid={
                     formikInstance.touched.poster_path &&
@@ -123,7 +123,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Label>Rating</Form.Label>
                 <Form.Control
                   placeholder="7.8"
-                  value={formikInstance.values.vote_average}
+                  value={formikInstance.values.vote_average || 0}
                   type="number"
                   onChange={formikInstance.handleChange}
                   isValid={
@@ -164,7 +164,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Label>Runtime*</Form.Label>
                 <Form.Control
                   placeholder="minutes"
-                  value={formikInstance.values.runtime}
+                  value={formikInstance.values.runtime || 0}
                   type="number"
                   onChange={formikInstance.handleChange}
                   isValid={
@@ -184,7 +184,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                 <Form.Control
                   type="date"
                   placeholder="Select date"
-                  value={formikInstance.values.release_date}
+                  value={formikInstance.values.release_date || new Date()}
                   onChange={formikInstance.handleChange}
                   isValid={
                     formikInstance.touched.release_date &&
@@ -204,7 +204,7 @@ const MovieModal = ({ movieData, handleHide, handleSubmit }) => {
                   as="textarea"
                   style={{ height: "100px" }}
                   placeholder="Movie description"
-                  value={formikInstance.values.overview}
+                  value={formikInstance.values.overview || ""}
                   onChange={formikInstance.handleChange}
                   isValid={formikInstance.touched.overview && !formikInstance.errors.overview}
                   isInvalid={!!formikInstance.errors.overview}

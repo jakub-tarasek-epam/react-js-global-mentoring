@@ -1,21 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import getData, { createMovieAPI, deleteMovieAPI, updateMovieAPI } from "api/api";
 
-export const fetchMovies = createAsyncThunk("movies/fetch", async () => {
-  return await getData();
+export const fetchMovies = createAsyncThunk("movies/fetch", async (searchQuery) => {
+  return await getData(searchQuery);
 });
 
 export const filterMovies = createAsyncThunk(
   "movies/filter",
   async (filter, { getState }) => {
-    return await getData(filter, getState().movies.sort);
+    return await getData('', filter, getState().movies.sort);
   }
 );
 
 export const sortMovies = createAsyncThunk(
   "movies/sort",
   async (sort, { getState }) => {
-    return await getData(getState().movies.filter, sort);
+    return await getData('', getState().movies.filter, sort);
   }
 );
 
