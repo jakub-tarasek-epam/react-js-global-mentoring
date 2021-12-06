@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie list renders correctly movie list component 1`] = `
+<div
+  className="sc-egiyK iAXDMb"
+>
+  <div
+    className="sc-pVTFL gNiyLU row"
+  >
+    <div
+      className="sc-iqseJM gsLrwT hstack gap-3"
+    >
+      <div
+        className="sc-jrQzAO itkHcF btn-group"
+        role="group"
+      >
+        <input
+          autoComplete="off"
+          checked={true}
+          className="btn-check"
+          disabled={false}
+          id="genreToggle-1"
+          name="options"
+          onChange={[Function]}
+          type="radio"
+          value="All"
+        />
+        <label
+          className="sc-kDTinF fjZIUg btn btn-primary"
+          href="link"
+          htmlFor="genreToggle-1"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          ALL
+        </label>
+        <input
+          autoComplete="off"
+          checked={false}
+          className="btn-check"
+          disabled={false}
+          id="genreToggle-2"
+          name="options"
+          onChange={[Function]}
+          type="radio"
+          value="Documentary"
+        />
+        <label
+          className="sc-kDTinF fjZIUg btn btn-primary"
+          htmlFor="genreToggle-2"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          DOCUMNETARY
+        </label>
+        <input
+          autoComplete="off"
+          checked={false}
+          className="btn-check"
+          disabled={false}
+          id="genreToggle-3"
+          name="options"
+          onChange={[Function]}
+          type="radio"
+          value="Comedy"
+        />
+        <label
+          className="sc-kDTinF fjZIUg btn btn-primary"
+          htmlFor="genreToggle-3"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          COMEDY
+        </label>
+        <input
+          autoComplete="off"
+          checked={false}
+          className="btn-check"
+          disabled={false}
+          id="genreToggle-4"
+          name="options"
+          onChange={[Function]}
+          type="radio"
+          value="Horror"
+        />
+        <label
+          className="sc-kDTinF fjZIUg btn btn-primary"
+          htmlFor="genreToggle-4"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          HORROR
+        </label>
+        <input
+          autoComplete="off"
+          checked={false}
+          className="btn-check"
+          disabled={false}
+          id="genreToggle-5"
+          name="options"
+          onChange={[Function]}
+          type="radio"
+          value="Crime"
+        />
+        <label
+          className="sc-kDTinF fjZIUg btn btn-primary"
+          htmlFor="genreToggle-5"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          CRIME
+        </label>
+      </div>
+      <div
+        className="ms-auto"
+      >
+        SORT BY
+      </div>
+      <select
+        onChange={[Function]}
+      >
+        <option
+          value="release_date"
+        >
+          RELEASE DATE
+        </option>
+        <option
+          value="vote_average"
+        >
+          RAITNG
+        </option>
+      </select>
+    </div>
+    <span>
+      <strong>
+        39
+      </strong>
+       movies found
+    </span>
+  </div>
+  <div
+    className="sc-crHmcD hjWyRA g-4 row row-cols-lg-3 row-cols-md-3 row-cols-1"
+  >
+    <div
+      className="col"
+    >
+      <div
+        className="sc-dkPtRN eZPrcG card"
+      >
+        <img
+          className="card-img-top sc-furwcr hAkgKz"
+          onClick={[Function]}
+        />
+        <div
+          className="sc-jRQBWg eZJEUA forHover dropdown"
+        >
+          <span
+            className="sc-bdvvtL ibuZAx"
+            onClick={[Function]}
+          >
+            <div>
+              <span />
+              <span />
+              <span />
+            </div>
+          </span>
+        </div>
+        <div
+          className="sc-eCImPb xqahD card-body"
+        >
+          <div
+            className="align-items-start hstack gap-2"
+          >
+            <div>
+              <div
+                className="sc-hKwDye hmqnzF card-title h5"
+              >
+                title
+              </div>
+              <div
+                className="sc-gKclnd lnSLIm text-muted card-subtitle h6"
+              />
+            </div>
+            <p
+              className="sc-iCfMLu eLtYGZ align-items-center text-center ms-auto card-text"
+            >
+              1991-26-05
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
